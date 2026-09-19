@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a0638">
+<title>Attention à l'escalier</title>
+<meta name="description" content="Attention à l'escalier : sur 100 Français, combien… ? Chacun tape son pourcentage sur son téléphone, le plus proche monte une marche.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/fontawesome/fa.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="decor" aria-hidden="true">
+  <span class="spot spot-1"></span><span class="spot spot-2"></span>
+  <div class="decor-stairs"></div>
+</div>
+<div id="fxLayer" class="fx-layer" aria-hidden="true"></div>
+
+<!-- ═══════════════ BOOT ═══════════════ -->
+<section id="screen-boot" class="screen is-active">
+  <div class="center-stack">
+    <div class="logo logo-xl" aria-label="Attention à l'escalier">
+      <span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span>
+    </div>
+    <p class="loader-text">On cire les marches…</p>
+  </div>
+</section>
+
+<!-- ═══════════════ ACCUEIL ═══════════════ -->
+<section id="screen-home" class="screen">
+  <div class="wrap">
+    <div class="logo logo-lg" aria-label="Attention à l'escalier">
+      <span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span>
+    </div>
+    <p class="tagline">Sur 100 Français, combien… ? Tape ton pourcentage, le plus proche monte une marche.</p>
+
+    <div class="home-actions">
+      <button id="btnGoCreate" class="btn btn-gold btn-xl"><i class="fa fa-clapperboard"></i> Je suis le maître du jeu</button>
+      <div class="join-inline">
+        <input id="inputJoinCode" class="input input-code" maxlength="5" placeholder="CODE" autocomplete="off" spellcheck="false" aria-label="Code de la partie">
+        <button id="btnGoJoin" class="btn btn-violet">Rejoindre</button>
+      </div>
+    </div>
+
+    <div id="homeHistory" class="history" hidden>
+      <h2 class="section-title">Tes dernières parties</h2>
+      <div id="homeHistoryList" class="history-list"></div>
+    </div>
+
+    <div class="card rules">
+      <h2 class="card-title"><i class="fa fa-circle-info"></i> Comment on joue</h2>
+      <ol class="rules-list">
+        <li>Le maître du jeu ouvre la partie sur un grand écran (télé, ordi).</li>
+        <li>Chacun rejoint avec le code sur son téléphone.</li>
+        <li>« Sur 100 femmes, combien… ? » : chacun tape son pourcentage.</li>
+        <li>Le plus proche de la vraie statistique monte une marche.</li>
+        <li>Une fois par partie, c'est l'heure de la <strong>question coquine</strong>.</li>
+      </ol>
+      <p class="card-sub">Toutes les réponses viennent de vraies enquêtes (Ifop, Insee, Crédoc…), source affichée à chaque révélation.</p>
+    </div>
+    <button class="link-btn" data-goto="#/compte">Mon compte</button>
+  </div>
+</section>
+
+<!-- ═══════════════ MON COMPTE ═══════════════ -->
+<section id="screen-compte" class="screen">
+  <div class="wrap">
+    <header class="bar">
+      <button class="btn btn-back" data-goto="#/" aria-label="Retour"><i class="fa fa-arrow-left"></i></button>
+      <h1 class="bar-title">Mon compte</h1>
+    </header>
+    <div class="card">
+      <h2 class="card-title"><i class="fa fa-crown"></i> <span id="comptePlan">—</span></h2>
+      <p id="compteDetail" class="card-sub"></p>
+      <button id="btnCompteRefresh" class="btn btn-ghost btn-sm"><i class="fa fa-rotate-right"></i> Vérifier mon statut</button>
+      <p id="compteDiag" class="diag" hidden></p>
+    </div>
+    <div class="card">
+      <h2 class="card-title">Mon identifiant</h2>
+      <p class="card-sub">C'est lui qui porte ton achat. Il est propre à ce navigateur :
+        garde-le si tu dois nous écrire au sujet d'un achat.</p>
+      <div class="link-box"><span id="compteUid" class="link-text mono">—</span></div>
+      <button id="btnCompteCopy" class="btn btn-violet"><i class="fa fa-copy"></i> Copier l'identifiant</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CRÉATION ═══════════════ -->
+<section id="screen-create" class="screen">
+  <div class="wrap">
+    <header class="bar">
+      <button class="btn btn-back" data-goto="#/" aria-label="Retour"><i class="fa fa-arrow-left"></i></button>
+      <h1 class="bar-title">Nouvelle partie</h1>
+    </header>
+
+    <div class="card" id="cardDuree">
+      <h2 class="card-title">Durée de la partie</h2>
+      <div class="choice-grid" data-field="duree">
+        <button class="choice is-on" data-value="45">
+          <span class="choice-label">45 min</span><span class="choice-hint">32 questions, 3 étages</span>
+        </button>
+        <button class="choice" data-value="60">
+          <span class="choice-label">1 heure</span><span class="choice-hint">42 questions, 3 étages</span>
+        </button>
+      </div>
+      <p class="card-sub">Une question coquine est glissée dans chaque partie, dans la seconde moitié. Tu peux arrêter la partie quand tu veux.</p>
+    </div>
+
+    <div id="planBanner" class="plan-banner" hidden>
+      <span><i class="fa fa-crown"></i> <strong id="planBannerTitle">Version gratuite</strong>
+      <span id="planBannerLine"></span></span>
+      <button id="btnPlanUpgrade" class="btn btn-gold btn-sm">Débloquer</button>
+    </div>
+    <button id="btnCreateGame" class="btn btn-gold btn-xl">Ouvrir le salon <i class="fa fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ═══════════════ SALON (HÔTE) ═══════════════ -->
+<section id="screen-lobby" class="screen screen-tv">
+  <div class="wrap wrap-wide">
+    <header class="bar">
+      <button class="btn btn-back" data-goto="#/" aria-label="Retour"><i class="fa fa-arrow-left"></i></button>
+      <h1 class="bar-title">Salon d'attente</h1>
+    </header>
+    <div class="lobby-grid">
+      <div class="lobby-join">
+        <p class="eyebrow">Sur ton téléphone, va sur</p>
+        <p id="lobbyUrl" class="lobby-url">—</p>
+        <p class="eyebrow">et tape le code</p>
+        <div id="lobbyCode" class="big-code">—</div>
+        <div class="row-btns">
+          <button id="btnLobbyCopy" class="btn btn-ghost btn-sm"><i class="fa fa-copy"></i> Copier le lien</button>
+          <button id="btnLobbyShare" class="btn btn-ghost btn-sm"><i class="fa fa-share-nodes"></i> Partager…</button>
+        </div>
+      </div>
+      <div class="lobby-players">
+        <h2 class="card-title"><i class="fa fa-people-group"></i> Joueurs <span id="lobbyCount" class="mono"></span></h2>
+        <div id="lobbyList" class="player-chips"></div>
+        <p id="lobbyEmpty" class="card-sub">Personne pour l'instant… Les joueurs apparaissent ici dès qu'ils rejoignent.</p>
+      </div>
+    </div>
+    <div class="row-btns row-btns-sticky">
+      <button id="btnStartLive" class="btn btn-gold btn-xl"><i class="fa fa-play"></i> Lancer la partie</button>
+      <button id="btnDeleteGame" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Supprimer la partie</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PLATEAU (HÔTE) ═══════════════ -->
+<section id="screen-live" class="screen screen-tv">
+  <div class="tv">
+    <header class="tv-head">
+      <div class="tv-etage"><span id="liveEtage">Étage 1</span><span id="liveProgress" class="tv-progress"></span></div>
+      <div class="logo logo-sm" aria-hidden="true"><span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span></div>
+      <button id="btnLiveQuit" class="btn btn-ghost btn-sm">Terminer</button>
+    </header>
+
+    <div class="tv-main">
+      <div class="tv-stage">
+        <div id="liveCarton" class="carton" hidden>
+          <div id="liveCartonIcon" class="carton-icon"></div>
+          <div id="liveCartonTitle" class="carton-title"></div>
+          <div id="liveCartonSub" class="carton-sub"></div>
+        </div>
+
+        <div id="liveQ" class="qcard" hidden>
+          <div id="liveCoqBadge" class="coq-badge" hidden><i class="fa fa-fire"></i> Question coquine</div>
+          <p class="qcard-pop">Sur 100 <strong id="livePop">Français</strong>,</p>
+          <h2 id="liveTexte" class="qcard-texte"></h2>
+
+          <div id="liveAsk" class="tv-ask">
+            <div class="timer" id="liveTimerWrap"><span id="liveTimer">30</span></div>
+            <div class="answered">
+              <span class="answered-label"><span id="liveAnsweredN">0</span> / <span id="liveAnsweredT">0</span> ont répondu</span>
+              <div id="liveAnswered" class="answered-chips"></div>
+            </div>
+          </div>
+
+          <div id="liveReveal" class="tv-reveal" hidden>
+            <div class="gauge">
+              <div class="gauge-track"><div id="liveGaugeFill" class="gauge-fill"></div></div>
+              <div id="liveGaugeMarks" class="gauge-marks"></div>
+              <div class="gauge-scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+            </div>
+            <div class="reveal-row">
+              <div class="reveal-num"><span id="liveVerite">0</span><small>%</small></div>
+              <div class="reveal-side">
+                <p id="liveWinner" class="reveal-winner"></p>
+                <p id="liveSource" class="reveal-source"></p>
+              </div>
+            </div>
+            <!-- Toutes les réponses, de la plus proche à la plus éloignée : le maître du
+                 jeu voit d'un coup d'œil qui est le plus proche et de combien. -->
+            <div id="liveRanking" class="reveal-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="tv-board">
+        <h3 class="board-title"><i class="fa fa-ranking-star"></i> L'escalier</h3>
+        <div id="liveStairs" class="stairs"></div>
+      </aside>
+    </div>
+
+    <footer class="tv-foot">
+      <span id="liveHint" class="tv-hint">Espace ou Entrée pour avancer</span>
+      <button id="btnLiveNext" class="btn btn-gold btn-xl">Suivant <i class="fa fa-arrow-right"></i></button>
+    </footer>
+  </div>
+</section>
+
+<!-- ═══════════════ PODIUM (HÔTE) ═══════════════ -->
+<section id="screen-podium" class="screen screen-tv">
+  <div class="wrap wrap-wide">
+    <div class="center-stack">
+      <div class="podium-crown"><i class="fa fa-crown"></i></div>
+      <h1 id="podiumTitle" class="podium-title">—</h1>
+      <p id="podiumLine" class="podium-line"></p>
+      <div id="podiumStairs" class="stairs stairs-big"></div>
+      <div id="podiumBoard" class="podium-board"></div>
+      <div class="row-btns">
+        <button id="btnReplay" class="btn btn-gold btn-xl"><i class="fa fa-rotate-right"></i> Nouvelle partie, mêmes joueurs</button>
+        <button class="btn btn-ghost" data-goto="#/">Accueil</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ REJOINDRE (JOUEUR) ═══════════════ -->
+<section id="screen-join" class="screen">
+  <div class="wrap">
+    <div class="logo logo-md" aria-label="Attention à l'escalier">
+      <span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span>
+    </div>
+    <div class="card">
+      <h2 class="card-title">Partie <span id="joinCode" class="mono"></span></h2>
+      <p id="joinMeta" class="card-sub"></p>
+      <label class="field">
+        <span class="field-label">Ton prénom</span>
+        <input id="inputName" class="input" maxlength="16" placeholder="Ash" autocomplete="given-name">
+      </label>
+      <button id="btnJoinConfirm" class="btn btn-gold btn-xl">Je monte <i class="fa fa-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MANETTE (JOUEUR) ═══════════════ -->
+<section id="screen-play" class="screen">
+  <div class="play">
+    <header class="play-head">
+      <span id="playMe" class="play-me"></span>
+      <span id="playScore" class="play-score"></span>
+    </header>
+
+    <div class="play-body">
+      <div id="playWait" class="play-wait">
+        <div class="mini-stairs" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <p id="playWaitTitle" class="play-wait-title">Tu es dans la partie !</p>
+        <p id="playWaitLine" class="play-wait-line">Regarde l'écran du maître du jeu.</p>
+      </div>
+
+      <div id="playAsk" hidden>
+        <div id="playCoq" class="coq-badge" hidden><i class="fa fa-fire"></i> Question coquine</div>
+        <p class="play-pop">Sur 100 <strong id="playPop">Français</strong>,</p>
+        <h2 id="playTexte" class="play-texte"></h2>
+        <div class="dial">
+          <button id="btnMinus" class="dial-btn" aria-label="Moins 1">−</button>
+          <div class="dial-num"><span id="playValue">50</span><small>%</small></div>
+          <button id="btnPlus" class="dial-btn" aria-label="Plus 1">+</button>
+        </div>
+        <input id="playRange" class="range" type="range" min="0" max="100" step="1" value="50" aria-label="Ton pourcentage">
+        <button id="btnSend" class="btn btn-gold btn-xl">Valider <span id="playTimer" class="mono"></span></button>
+        <p id="playSent" class="play-sent" hidden><i class="fa fa-circle-check"></i> Envoyé ! Tu peux corriger tant que le chrono tourne.</p>
+        <p id="playSpectate" class="play-spectate" hidden></p>
+      </div>
+
+      <div id="playResult" class="play-result" hidden>
+        <div id="playResultIcon" class="play-result-icon"></div>
+        <p id="playResultTitle" class="play-result-title"></p>
+        <div class="play-compare">
+          <div><span class="field-label">Toi</span><strong id="playMine">—</strong></div>
+          <div><span class="field-label">La vraie stat</span><strong id="playTruth">—</strong></div>
+        </div>
+        <p id="playResultLine" class="play-result-line"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PAYWALL ═══════════════ -->
+<div id="paywall" class="modal">
+  <div class="modal-box paywall-box">
+    <div class="paywall-crown"><i class="fa fa-crown"></i></div>
+    <h2 class="paywall-title">Version complète</h2>
+    <p id="paywallWhy" class="paywall-why"></p>
+    <ul class="paywall-list">
+      <li><i class="fa fa-circle-check"></i> <strong>Toute la banque de questions</strong>, qui s'agrandit</li>
+      <li><i class="fa fa-circle-check"></i> Parties de <strong>45 min et 1 h</strong></li>
+      <li><i class="fa fa-circle-check"></i> Jusqu'à <strong>12 joueurs</strong></li>
+    </ul>
+    <div class="paywall-price"><strong id="paywallPrice">4,99 €</strong> une seule fois, à vie</div>
+    <p class="paywall-note">C'est le maître du jeu qui paie. Tous les joueurs en profitent sans rien installer.</p>
+    <div class="modal-actions">
+      <button id="paywallCancel" class="btn btn-ghost">Plus tard</button>
+      <button id="paywallBuy" class="btn btn-gold">Débloquer</button>
+    </div>
+    <button id="paywallRestore" class="link-btn">J'ai déjà acheté sur cet appareil</button>
+  </div>
+</div>
+
+<!-- ═══════════════ MODALE MAISON ═══════════════ -->
+<div id="confirmModal" class="modal">
+  <div class="modal-box">
+    <p id="confirmModalText" class="modal-text"></p>
+    <div class="modal-actions">
+      <button id="confirmModalCancel" class="btn btn-ghost">Annuler</button>
+      <button id="confirmModalOk" class="btn btn-gold">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<button id="btnMute" class="mute-btn" title="Couper le son" aria-label="Couper le son"><i class="fa fa-volume-high"></i></button>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

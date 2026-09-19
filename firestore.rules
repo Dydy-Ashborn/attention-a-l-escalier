@@ -1,0 +1,51 @@
+rules_version = '2';
+
+/* Attention à l'escalier — sécurité.
+ * - Le doc de partie est lisible par tout joueur connecté, écrit par l'hôte seul.
+ * - Un joueur n'écrit que sa propre fiche et sa propre réponse.
+ * - Les réponses (guesses) ne sont lisibles que par leur auteur et l'hôte :
+ *   impossible de copier le pourcentage d'un autre joueur avant la révélation.
+ * - hosts/{uid} (statut d'achat) : lecture par son propriétaire, écriture refusée —
+ *   seul le webhook Stripe (Admin SDK, hors règles) l'écrit.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isHost(gameId) {
+      return signedIn()
+        && get(/databases/$(database)/documents/games/$(gameId)).data.hostUid == request.auth.uid;
+    }
+
+    match /games/{gameId} {
+      allow read:   if signedIn();
+      allow create: if signedIn() && request.resource.data.hostUid == request.auth.uid;
+      // Sur update/delete, resource.data porte l'état AVANT écriture
+      // (jamais request.resource sur un delete : il vaut null).
+      allow update: if signedIn() && resource.data.hostUid == request.auth.uid
+                    && request.resource.data.hostUid == resource.data.hostUid;
+      allow delete: if signedIn() && resource.data.hostUid == request.auth.uid;
+
+      match /players/{playerId} {
+        allow read:   if signedIn();
+        allow create, update: if signedIn() && request.auth.uid == playerId
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() <= 16;
+        allow delete: if signedIn() && (request.auth.uid == playerId || isHost(gameId));
+      }
+
+      match /guesses/{playerId} {
+        allow read:   if signedIn() && (request.auth.uid == playerId || isHost(gameId));
+        allow write:  if signedIn() && request.auth.uid == playerId
+                    && request.resource.data.value is int
+                    && request.resource.data.value >= 0 && request.resource.data.value <= 100;
+        allow delete: if signedIn() && (request.auth.uid == playerId || isHost(gameId));
+      }
+    }
+
+    match /hosts/{hostId} {
+      allow read:  if signedIn() && request.auth.uid == hostId;
+      allow write: if false;
+    }
+  }
+}
