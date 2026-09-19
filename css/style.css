@@ -33,7 +33,10 @@
    (piège vécu sur Bibi Love : un élément masqué qui réapparaît). */
 [hidden]{display:none!important}
 
-html,body{height:100%}
+/* Pas de zoom au double tap : les joueurs tapotent vite sur −/+ et Valider.
+   iOS ignore user-scalable=no depuis iOS 10, c'est touch-action qui fait le travail
+   (appliqué sur html, il vaut pour toute la page). */
+html,body{height:100%;touch-action:manipulation}
 body{
   font-family:var(--font);color:var(--blanc);background:var(--nuit);
   min-height:100dvh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom);
@@ -346,7 +349,32 @@ body::before{
 .dial-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #2a0a5c}
 .dial-num{font-family:var(--display);font-size:92px;line-height:1;color:var(--or);min-width:2.6ch;text-shadow:0 .05em 0 var(--or-sombre)}
 .dial-num small{font-size:.4em}
-.range{width:100%;margin:18px 0 22px;accent-color:var(--or);height:36px}
+.range{
+  -webkit-appearance:none;appearance:none;width:100%;height:56px;margin:14px 0 20px;
+  background:transparent;cursor:pointer;touch-action:pan-y;
+}
+/* Curseur agrandi : la boule native (≈16 px) était impossible à attraper au doigt. */
+.range::-webkit-slider-runnable-track{
+  height:16px;border-radius:999px;
+  background:linear-gradient(90deg,var(--or) 0 var(--p,50%),rgba(18,3,42,.75) var(--p,50%) 100%);
+  border:2px solid rgba(255,255,255,.2);
+}
+.range::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:48px;height:48px;border-radius:50%;margin-top:-18px;
+  background:radial-gradient(circle at 35% 30%,var(--or-clair),var(--or) 55%,var(--orange));
+  border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.5),0 0 0 6px rgba(255,207,63,.25);
+}
+.range:active::-webkit-slider-thumb{transform:scale(1.1)}
+.range::-moz-range-track{
+  height:16px;border-radius:999px;background:rgba(18,3,42,.75);border:2px solid rgba(255,255,255,.2);
+}
+.range::-moz-range-progress{height:16px;border-radius:999px;background:var(--or)}
+.range::-moz-range-thumb{
+  width:44px;height:44px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--or-clair),var(--or) 55%,var(--orange));
+  border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.5),0 0 0 6px rgba(255,207,63,.25);
+}
+.range:disabled{opacity:.45}
 .play-sent{color:var(--vert);font-weight:800;margin-top:14px}
 .play-spectate{color:var(--gris);margin-top:14px;line-height:1.45}
 .play-result-icon{font-size:72px}
@@ -358,6 +386,13 @@ body::before{
 .play-compare>div{background:rgba(18,3,42,.55);border-radius:16px;padding:14px;border:1.5px solid rgba(185,140,255,.25)}
 .play-compare strong{font-family:var(--display);font-weight:400;font-size:44px;color:var(--or)}
 .play-result-line{color:var(--gris);line-height:1.45}
+.play-closest{margin:0 0 16px;padding:12px 14px;border-radius:16px;background:rgba(77,255,154,.1);border:1.5px solid rgba(77,255,154,.45)}
+.play-closest .field-label{color:var(--vert)}
+.play-closest-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.play-closest-row{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.play-closest-row .grow{flex:1;text-align:left;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.play-closest-row strong{font-family:var(--display);font-weight:400;font-size:30px;color:var(--or)}
+.play-closest-row small{color:var(--gris);font-weight:600;font-size:13px}
 
 /* ── Modales, toast, son ──────────────────────────────────────── */
 .modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,0,25,.72);backdrop-filter:blur(4px)}

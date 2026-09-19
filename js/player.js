@@ -176,7 +176,10 @@ function afficherQuestion(bc) {
 function majValeur(v) {
   P.value = pourcent(v) ?? 50;
   $('#playValue').textContent = P.value;
-  $('#playRange').value = P.value;
+  const r = $('#playRange');
+  r.value = P.value;
+  // Remplissage doré de la piste jusqu'au curseur (lu par .range::-webkit-slider-runnable-track).
+  r.style.setProperty('--p', P.value + '%');
 }
 
 $('#playRange')?.addEventListener('input', e => majValeur(e.target.value));
@@ -210,10 +213,9 @@ $('#btnSend')?.addEventListener('click', async () => {
   } finally { if (P.timer) btn.disabled = false; }
 });
 
-function nom(u) { return P.players.find(p => p.uid === u)?.name || '?'; }
-
 function afficherResultat(bc) {
-  const mine = (bc.reponses || {})[uid()];
+  const rep = bc.reponses || {};
+  const mine = rep[uid()];
   const concerne = !bc.departage || (bc.candidats || []).includes(uid());
   const gagne = (bc.gagnants || []).includes(uid());
   const ecart = (bc.ecarts || {})[uid()];
@@ -233,16 +235,33 @@ function afficherResultat(bc) {
     $('#playResultTitle').textContent = !concerne ? 'Départage' : mine === undefined ? 'Pas de réponse' : `Raté de ${ecart} point${ecart > 1 ? 's' : ''}`;
     if (concerne) sfx.bad();
   }
+
+  // Le ou les plus proches, avec LEUR réponse uniquement : les autres joueurs
+  // ne voient jamais les pourcentages de tout le monde sur leur téléphone.
   const g = bc.gagnants || [];
-  const noms = g.map(nom);
-  $('#playResultLine').innerHTML = (g.length
-    ? `Le${g.length > 1 ? 's' : ''} plus proche${g.length > 1 ? 's' : ''} : <strong>${esc(noms.join(', '))}</strong>. `
-    : 'Personne n\'a répondu. ')
-    + `<br><small>Source : ${esc(bc.src || '')}${bc.note ? '. ' + esc(bc.note) : ''}</small>`;
+  const box = $('#playClosestList');
+  box.replaceChildren();
+  $('#playClosest').hidden = !g.length;
+  $('#playClosestLabel').textContent = g.length > 1 ? 'Les plus proches, ex æquo' : 'Le plus proche';
+  g.forEach(u => {
+    const p = P.players.find(x => x.uid === u) || { name: '?', color: '#ffcf3f' };
+    const pw = el('span', { class: 'pawn' }, initiale(p.name));
+    pw.style.setProperty('--c', p.color);
+    const e = (bc.ecarts || {})[u];
+    box.append(el('div', { class: 'play-closest-row' },
+      pw,
+      el('span', { class: 'grow' }, u === uid() ? `${p.name} (toi)` : p.name),
+      el('span', {}, el('strong', {}, `${rep[u]} %`), ' ',
+        el('small', {}, e === 0 ? 'pile !' : `à ${e} pt${e > 1 ? 's' : ''}`))));
+  });
+
+  $('#playResultLine').innerHTML = (g.length ? '' : 'Personne n\'a répondu. ')
+    + `<small>Source : ${esc(bc.src || '')}${bc.note ? '. ' + esc(bc.note) : ''}</small>`;
   vue('result');
 }
 
 function afficherFin(bc) {
+  $('#playClosest').hidden = true;   // bloc propre à la révélation, pas au récap final
   const c = classement(bc.scores || {}, P.players.map(p => ({ uid: p.uid, name: p.name, color: p.color })));
   const moi = c.find(l => l.uid === uid());
   const premier = moi && moi.rang === 1;

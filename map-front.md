@@ -36,9 +36,14 @@ le podium) — sinon toutes les marches s'aplatissent.
 - Rejoindre : prénom (2-16 car., unique dans la partie), couleur de pion libre attribuée.
   Refus si `maxJoueurs` (figé dans le doc de partie) est atteint.
 - Saisie : gros chiffre, boutons −/+ (appui long = défilement, ×5 après 1,2 s) et curseur.
+  Curseur restylé (boule de 48 px, piste remplie en or via la variable `--p` posée par
+  `majValeur`) : la boule native était trop petite au doigt.
   « Valider » peut être renvoyé tant que le chrono tourne (la dernière valeur compte).
 - Chrono **local**, démarré à réception : on ne compare jamais les horloges des appareils.
-- Résultat : ta valeur / la vraie stat, écart, nom du ou des plus proches, source.
+- Résultat (`afficherResultat`) : ta valeur / la vraie stat, ton écart, puis le bloc vert
+  « Le plus proche » avec **sa réponse et son écart uniquement** (tous les ex æquo s'il y en
+  a). Les réponses des autres joueurs ne s'affichent jamais sur les téléphones, seulement
+  sur l'écran maître. Masqué au récap final (`afficherFin`).
 - Retiré par l'hôte (fiche supprimée) ou partie supprimée : retour à l'accueil.
 
 ## Contrat de diffusion (js/live.js)
@@ -55,6 +60,8 @@ existante. Font Awesome vendorisé (sous-ensemble de Bibi Love : n'utiliser que 
 icônes présentes dans `vendor/fontawesome/fa.css`).
 
 ## Pièges
+- Zoom au double tap sur mobile : `touch-action:manipulation` sur html/body (iOS ignore
+  `user-scalable=no` depuis iOS 10, gardé dans le viewport pour Android).
 - `[hidden]{display:none!important}` en tête de CSS (hérité de Bibi Love).
 - Toast vide visible en bas d'écran : `visibility:hidden` hors ouverture.
 - Bouton son déplacé en bas à gauche : il chevauchait le bouton « Suivant » du plateau.
