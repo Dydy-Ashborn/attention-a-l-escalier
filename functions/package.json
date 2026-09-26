@@ -1,6 +1,6 @@
 {
-  "name": "escalier-functions",
-  "description": "Webhook Stripe d'Attention à l'escalier",
+  "name": "bibi-step-functions",
+  "description": "Webhook Stripe de Bibi step",
   "main": "index.js",
   "engines": { "node": "20" },
   "dependencies": {

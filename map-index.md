@@ -1,4 +1,4 @@
-# map-index — Attention à l'escalier
+# map-index — Bibi step
 
 Aiguillage global. Aucun détail comportemental ici : voir les maps spécialisées.
 

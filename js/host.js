@@ -1,4 +1,4 @@
-/* Attention à l'escalier — parcours du maître du jeu :
+/* Bibi step — parcours du maître du jeu :
  * création → salon → plateau (écran partagé) → podium. */
 import { $, $$, el, icon, iconHtml, esc, showScreen, showConfirmModal, toast, sfx, burst,
          copy, initiale, countUp, shake } from './util.js';
@@ -10,7 +10,8 @@ import { tirerPartie, etageDe, ouvreEtage, departager, crediter, classement, enT
          questionDepartage, nbQuestions } from './game.js';
 import { byId, enonce } from './data/questions.js';
 import { PHASE, broadcast } from './live.js';
-import { guard, isPremium, resume as planResume, limitePool, maxJoueurs, PRIX } from './plan.js';
+import { guard, isPremium, resume as planResume, limitePool, maxJoueurs, dureeInitiale,
+         offre, PRIX } from './plan.js';
 
 /* ── État de la session hôte ──────────────────────────────────────── */
 const S = {
@@ -32,8 +33,12 @@ export function leaveHost() {
 
 /* ═══════════════ PAYWALL ═══════════════ */
 export function openPaywall(why = '') {
-  $('#paywallWhy').textContent = why;
+  const o = offre();
+  $('#paywallWhy').textContent = why || 'Passe au grand format et garde la soirée lancée.';
   $('#paywallPrice').textContent = PRIX;
+  $('#paywallTotal').textContent = o.total;
+  $('#paywallCoquines').textContent = o.coquines;
+  $('#paywallThemes').textContent = o.themes;
   $('#paywall').classList.add('is-open');
 }
 $('#paywallCancel')?.addEventListener('click', () => $('#paywall').classList.remove('is-open'));
@@ -57,19 +62,24 @@ export function renderHistory() {
 }
 
 /* ═══════════════ CRÉATION ═══════════════ */
-let dureeChoisie = 45;
+let dureeChoisie = 15;
 
 export function enterCreate() {
-  dureeChoisie = 45;
+  dureeChoisie = dureeInitiale();
   $$('#cardDuree .choice').forEach(c => {
-    c.classList.toggle('is-on', c.dataset.value === '45');
+    c.classList.toggle('is-on', Number(c.dataset.value) === dureeChoisie);
     c.querySelector('.choice-lock')?.remove();
     if (!guard('duree', c.dataset.value).ok) c.append(el('span', { class: 'choice-lock' }, icon('lock')));
   });
   const r = planResume();
   $('#planBanner').hidden = isPremium();
   $('#planBannerTitle').textContent = r.titre;
-  $('#planBannerLine').textContent = ' — ' + r.ligne;
+  $('#planBannerLine').textContent = r.ligne;
+  const o = offre();
+  $('#planFreeCount').textContent = o.decouverte;
+  $('#planFullCount').textContent = o.total;
+  $('#planFullCoquines').textContent = o.coquines;
+  $('#planFullPlayers').textContent = o.joueursComplets;
   showScreen('screen-create');
 }
 
@@ -137,7 +147,7 @@ export async function enterLobby(code) {
   $('#lobbyCode').textContent = code;
   $('#btnLobbyCopy').onclick = async () => toast(await copy(url) ? 'Lien copié.' : url, 'ok');
   $('#btnLobbyShare').onclick = async () => {
-    if (navigator.share) { try { await navigator.share({ title: "Attention à l'escalier", text: `Rejoins la partie ${code} !`, url }); } catch {} }
+    if (navigator.share) { try { await navigator.share({ title: "Bibi step", text: `Rejoins la partie ${code} !`, url }); } catch {} }
     else toast(await copy(url) ? 'Lien copié.' : url, 'ok');
   };
   publish({ phase: PHASE.ATTENTE });
@@ -458,7 +468,7 @@ function renderRanking(rep, res) {
 function finDePartie() {
   const tete = enTete(S.scores, S.players);
   if (tete.length > 1 && S.departages < RULES.DEPARTAGES_MAX && S.players.length > 1) {
-    const qid = questionDepartage([...S.game.ids, ...S.joues]);
+    const qid = questionDepartage([...S.game.ids, ...S.joues], { pool: limitePool() });
     if (qid) {
       S.step = { kind: 'dep-carton', idx: S.game.ids.length - 1, qid, departage: true, candidats: tete };
       carton({ icone: 'stopwatch', titre: 'Départage !', sous: `${listeNoms(tete)} sont à égalité en haut de l'escalier. Une question pour tout décider.` });
@@ -507,7 +517,7 @@ function showPodium({ calme = false } = {}) {
 /** Rejouer : même code, mêmes joueurs, nouveau tirage — les téléphones suivent seuls. */
 $('#btnReplay')?.addEventListener('click', async () => {
   let duree = S.game.duree;
-  if (!guard('duree', duree).ok) duree = 45;
+  if (!guard('duree', duree).ok) duree = dureeInitiale();
   const { ids, coquineIdx } = tirerPartie({ duree, exclude: usedQuestions(), pool: limitePool() });
   S.scores = {}; S.joues = []; S.departages = 0;
   try {

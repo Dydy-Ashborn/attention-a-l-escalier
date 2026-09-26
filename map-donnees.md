@@ -17,8 +17,8 @@ jouées : repoussées en fin de tirage), `escalier.premium` (cache), `escalier.n
 valeur estimée. Champs : `id, pop, q, a, src, note?, t, g, coq?`.
 - `g` (groupe) : les variantes femmes/hommes/ensemble d'une même question partagent un
   groupe ; une partie n'en tire qu'une.
-- Ordre du tableau = ordre de la version gratuite (45 premières normales + 6 coquines).
-  **Ajouter à la fin**, ne jamais renuméroter.
+- La sélection gratuite est définie explicitement par `DECOUVERTE_IDS` afin de rester
+  courte et variée. **Ne jamais renuméroter les ids existants.**
 - `node scripts/test-game.mjs` contrôle la banque (champs, valeurs, assez de groupes
   pour une partie d'1 h).
 

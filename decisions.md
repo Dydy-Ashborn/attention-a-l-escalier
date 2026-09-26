@@ -1,4 +1,4 @@
-# decisions — Attention à l'escalier
+# decisions — Bibi step
 
 ## Format
 - **Écran maître + téléphones** (comme Bibi Love), Firestore temps réel, auth anonyme.
@@ -9,7 +9,8 @@
 - **Une question coquine par partie**, jamais en ouverture ni en dernière question,
   annoncée par un carton dédié. Elle vaut 1 marche comme les autres (`POINTS_COQUINE`).
 - **Départage** automatique en cas d'égalité au sommet (3 questions max, puis ex æquo).
-- Durées 45 min (32 q.) et 1 h (42 q.), ≈ 80 s par question révélation comprise.
+- Durée découverte 15 min (12 q.) ; complet 45 min (32 q.) et 1 h (42 q.),
+  ≈ 80 s par question révélation comprise.
 - Le maître du jeu ne joue pas depuis l'écran ; s'il veut jouer, il rejoint aussi avec
   son téléphone.
 
@@ -30,7 +31,7 @@
 - Service worker réseau-d'abord pour le code (leçon Bibi Love).
 
 ## Identité
-Nom « Attention à l'escalier », logo et DA originaux (violet/or, cartouches en marches).
+Nom « Bibi step », logo et DA originaux (violet/or, cartouches en marches).
 L'esprit des jeux télé est repris, jamais la marque, le logo ou le cadre d'une émission.
 
 ## Limitations connues

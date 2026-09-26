@@ -1,17 +1,15 @@
-/* Attention à l'escalier — point de contrôle unique du plan (gratuit / complet).
+/* Bibi step — point de contrôle unique du plan (gratuit / complet).
  *
  * Même modèle que Bibi Love : toute limitation passe par `guard()`, aucune
  * vérification de plan ailleurs. Ajouter une restriction = une entrée ici, jamais
  * un `if` dans une vue.
  *
- * Découpage : on ne verrouille ni la question coquine ni le format. La version
- * gratuite fait vivre une vraie partie de 45 minutes ; ce sont la taille de la
- * banque, la partie d'une heure et le nombre de joueurs qui sont bridés. C'est la
- * répétition des questions à la deuxième soirée qui déclenche l'achat.
+ * Découpage : la découverte gratuite est une vraie mini-partie de 15 minutes.
+ * La version complète débloque les formats de soirée, toute la banque et 12 joueurs.
  */
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
 import { db, uid } from './firebase.js';
-import { QUESTIONS } from './data/questions.js';
+import { QUESTIONS, DECOUVERTE_IDS } from './data/questions.js';
 import { RULES } from './config.js';
 import { ls } from './util.js';
 
@@ -22,7 +20,7 @@ export const PRIX = '4,99 €';
  * À créer dans le Dashboard Stripe puis coller ici. Vide = bouton d'achat désactivé
  * proprement (« Bientôt disponible ») plutôt qu'une page morte.
  */
-export const LIEN_PAIEMENT = '';
+export const LIEN_PAIEMENT = 'https://buy.stripe.com/8x228r9Z05f171Qfgn8so04';
 
 /**
  * URL de paiement portant l'identité de l'acheteur. `client_reference_id` est renvoyé
@@ -38,10 +36,9 @@ export function urlPaiement() {
 }
 
 export const GRATUIT = {
-  durees: [45],
+  durees: [15],
   maxJoueurs: 4,
-  questions: 45,     // premières questions normales de la banque
-  coquines: 6        // premières questions coquines
+  ids: DECOUVERTE_IDS
 };
 
 const LS = 'escalier.premium';
@@ -105,7 +102,7 @@ export function guard(feature, value) {
     case 'duree':
       return GRATUIT.durees.includes(Number(value))
         ? { ok: true }
-        : { ok: false, why: "La partie d'une heure fait partie de la version complète." };
+        : { ok: false, why: `Le format ${Number(value) === 60 ? '1 heure' : '45 minutes'} est réservé au jeu complet.` };
     case 'joueurs':
       return Number(value) <= GRATUIT.maxJoueurs
         ? { ok: true }
@@ -120,20 +117,34 @@ export function maxJoueurs() {
   return cache ? RULES.MAX_JOUEURS : GRATUIT.maxJoueurs;
 }
 
+export function dureeInitiale() {
+  return cache ? 45 : GRATUIT.durees[0];
+}
+
 /**
- * Restreint la banque en version gratuite. Découpe déterministe (les premières
- * de la banque) : deux parties gratuites successives piochent dans le même
- * sous-ensemble — c'est voulu, c'est la répétition qui se fait sentir.
+ * Restreint la banque à la sélection éditoriale de découverte.
  */
 export function limitePool(pool = QUESTIONS) {
   if (cache) return pool;
-  let n = 0, c = 0;
-  return pool.filter(q => q.coq ? (++c <= GRATUIT.coquines) : (++n <= GRATUIT.questions));
+  const ids = new Set(GRATUIT.ids);
+  return pool.filter(q => ids.has(q.id));
+}
+
+export function offre() {
+  const coquines = QUESTIONS.filter(q => q.coq).length;
+  return {
+    total: QUESTIONS.length,
+    coquines,
+    themes: new Set(QUESTIONS.filter(q => !q.coq).map(q => q.t)).size,
+    decouverte: GRATUIT.ids.length,
+    joueursGratuits: GRATUIT.maxJoueurs,
+    joueursComplets: RULES.MAX_JOUEURS
+  };
 }
 
 export function resume() {
-  const total = QUESTIONS.length;
-  if (cache) return { titre: 'Version complète', ligne: `${total} questions, parties de 45 min ou 1 h, jusqu'à ${RULES.MAX_JOUEURS} joueurs.` };
-  return { titre: 'Version gratuite',
-    ligne: `${GRATUIT.questions + GRATUIT.coquines} questions · parties de 45 min · ${GRATUIT.maxJoueurs} joueurs max.` };
+  const o = offre();
+  if (cache) return { titre: 'Jeu complet', ligne: `${o.total} questions · 45 min ou 1 h · jusqu'à ${o.joueursComplets} joueurs.` };
+  return { titre: 'Partie découverte',
+    ligne: `15 min · ${o.decouverte} questions disponibles · ${o.joueursGratuits} joueurs max.` };
 }

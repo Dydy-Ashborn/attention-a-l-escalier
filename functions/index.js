@@ -1,4 +1,4 @@
-/* Attention à l'escalier — webhook Stripe.
+/* Bibi step — webhook Stripe.
  *
  * Unique fonction serveur du projet (même principe que Bibi Love) : un paiement ne
  * peut pas être vérifié côté navigateur, et les règles Firestore interdisent
@@ -22,7 +22,12 @@ const WEBHOOK_SECRET = defineSecret('STRIPE_WEBHOOK_SECRET');
 admin.initializeApp();
 
 exports.stripeWebhook = onRequest(
-  { region: 'europe-west1', secrets: [STRIPE_SECRET, WEBHOOK_SECRET], cors: false },
+  {
+    region: 'europe-west1',
+    secrets: [STRIPE_SECRET, WEBHOOK_SECRET],
+    cors: false,
+    invoker: 'public'
+  },
   async (req, res) => {
     const stripe = require('stripe')(STRIPE_SECRET.value());
 

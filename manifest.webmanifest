@@ -1,6 +1,6 @@
 {
-  "name": "Attention à l'escalier",
-  "short_name": "L'escalier",
+  "name": "Bibi step",
+  "short_name": "Bibi step",
   "description": "Sur 100 Français, combien… ? Tape ton pourcentage, le plus proche monte une marche.",
   "start_url": "./",
   "scope": "./",

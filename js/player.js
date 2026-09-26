@@ -1,4 +1,4 @@
-/* Attention à l'escalier — parcours joueur : rejoindre → manette téléphone. */
+/* Bibi step — parcours joueur : rejoindre → manette téléphone. */
 import { $, el, icon, iconHtml, esc, showScreen, toast, sfx, burst, initiale, ls, shake } from './util.js';
 import { PIONS } from './config.js';
 import { uid } from './firebase.js';

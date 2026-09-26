@@ -1,4 +1,4 @@
-/* Attention à l'escalier — routeur et amorçage. */
+/* Bibi step — routeur et amorçage. */
 import { $, iconHtml, showScreen, toast, sfx, toggleMute, isMuted, copy, burst, ls } from './util.js';
 import { ready, uid, configure } from './firebase.js';
 import { enterCreate, enterLobby, renderHistory, leaveHost, openPaywall } from './host.js';
@@ -12,16 +12,21 @@ import { refreshPremium, isPremium, diagPremium, resume as planResume,
    #/host/CODE   salon puis plateau (maître du jeu)
    #/j/CODE      manette joueur
    #/compte      statut d'achat + identifiant
+   #/cgu         conditions générales d'utilisation
+   #/cgv         conditions générales de vente
    ───────────────────────────────────────────────────────────────── */
 const nettoie = s => s.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
 async function route() {
   const hash = location.hash || '#/';
+  $('#paywall')?.classList.remove('is-open');
   leaveHost(); leavePlayer();
   if (hash.startsWith('#/j/'))    { await enterJoin(nettoie(hash.slice(4))); return; }
   if (hash.startsWith('#/host/')) { await enterLobby(nettoie(hash.slice(7))); return; }
   if (hash === '#/create') { enterCreate(); return; }
   if (hash === '#/compte') { enterCompte(); return; }
+  if (hash === '#/cgu') { showScreen('screen-cgu'); return; }
+  if (hash === '#/cgv') { showScreen('screen-cgv'); return; }
   renderHistory();
   showScreen('screen-home');
 }
@@ -70,10 +75,15 @@ $('#btnCompteCopy')?.addEventListener('click', async () => {
 });
 
 /* ── Paywall : achat et restauration ─────────────────────────────────────── */
-if (!LIEN_PAIEMENT && $('#paywallBuy')) {
-  $('#paywallBuy').disabled = true;
-  $('#paywallBuy').textContent = 'Bientôt disponible';
+const paywallBuy = $('#paywallBuy');
+const paywallConsent = $('#paywallConsent');
+function majAchatDisponible() {
+  if (!paywallBuy) return;
+  paywallBuy.disabled = !LIEN_PAIEMENT || !paywallConsent?.checked;
+  paywallBuy.textContent = LIEN_PAIEMENT ? `Débloquer — ${PRIX}` : 'Bientôt disponible';
 }
+paywallConsent?.addEventListener('change', majAchatDisponible);
+majAchatDisponible();
 $('#paywallBuy')?.addEventListener('click', () => {
   const url = urlPaiement();
   if (!url) { toast("Le paiement n'est pas encore ouvert. Reviens bientôt !", 'err'); return; }

@@ -1,4 +1,4 @@
-/* Attention à l'escalier — configuration.
+/* Bibi step — configuration.
  *
  * Clés Firebase : publiques par nature (SDK web), la sécurité réelle est dans
  * firestore.rules. À remplir après création du projet Firebase dédié
@@ -18,7 +18,7 @@ export const firebaseConfig = {
 /* Réglages de jeu globaux — seul endroit où vivent les constantes de rythme. */
 export const RULES = {
   /** Nombre de questions par durée visée (≈ 80 s par question, révélation comprise). */
-  QUESTIONS_PAR_DUREE: { 45: 32, 60: 42 },
+  QUESTIONS_PAR_DUREE: { 15: 12, 45: 32, 60: 42 },
   /** Découpage en étages : la partie se joue en 3 paliers annoncés à l'écran. */
   ETAGES: 3,
   /** Temps laissé aux téléphones pour répondre. */

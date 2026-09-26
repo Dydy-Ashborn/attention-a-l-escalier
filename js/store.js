@@ -1,4 +1,4 @@
-/* Attention à l'escalier — couche d'accès Firestore. Aucun composant UI ici.
+/* Bibi step — couche d'accès Firestore. Aucun composant UI ici.
  * Modèle :
  *   games/{code}                    config + déroulé + état live + broadcast — écrit par l'hôte seul
  *   games/{code}/players/{uid}      prénom + couleur de pion — écrit par le joueur

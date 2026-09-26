@@ -1,4 +1,4 @@
-/* Attention à l'escalier — banque de questions.
+/* Bibi step — banque de questions.
  *
  * RÈGLE D'OR : chaque chiffre vient d'une enquête réelle, citée dans `src`.
  * Aucune valeur n'est estimée, arrondie « au feeling » ou extrapolée d'une autre population.
@@ -16,8 +16,8 @@
  *         partagent un groupe, et une partie n'en tire qu'une par groupe
  *   coq   true = question coquine (une seule par partie, annoncée à l'écran)
  *
- * L'ordre du tableau compte : la version gratuite joue les N premières questions
- * (voir js/plan.js). Ajouter les nouvelles questions à la fin.
+ * `DECOUVERTE_IDS` définit la sélection gratuite : elle doit rester courte, variée
+ * et représentative. Le reste de la banque appartient à la version complète.
  */
 
 const IFOP_HYG = 'Ifop pour Diogène France, 2020';
@@ -302,3 +302,18 @@ export function enonce(q) {
 }
 
 export const byId = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+
+/** Sélection éditoriale de la partie découverte : 18 normales, 2 coquines, 8 thèmes. */
+export const DECOUVERTE_IDS = Object.freeze([
+  'hyg04', 'hyg09',
+  'sup01', 'sup10', 'sup24',
+  'tab01', 'tab05',
+  'mai01', 'mai05',
+  'num02', 'num06',
+  'vie01', 'vie04',
+  'cou01', 'cou04',
+  'arg06',
+  'tra02',
+  'lit06',
+  'coq01', 'coq02'
+]);

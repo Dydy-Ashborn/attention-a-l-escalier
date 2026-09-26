@@ -1,4 +1,4 @@
-/* Attention à l'escalier — contrat de diffusion entre l'écran maître et les téléphones.
+/* Bibi step — contrat de diffusion entre l'écran maître et les téléphones.
  *
  * L'hôte publie un « broadcast » dans games/{code}.bc à chaque changement d'état.
  * Champ séparé de `live` (l'état de reprise) : `live` est réécrit en bloc à chaque

@@ -1,4 +1,4 @@
-/* Attention à l'escalier — helpers DOM, modale maison, sons synthétisés, particules.
+/* Bibi step — helpers DOM, modale maison, sons synthétisés, particules.
  * Repris de Bibi Love (mêmes garde-fous) ; aucune alerte native : toute confirmation
  * passe par showConfirmModal(). */
 

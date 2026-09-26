@@ -1,4 +1,4 @@
-/* Attention à l'escalier — logique de jeu pure.
+/* Bibi step — logique de jeu pure.
  * Aucun accès au DOM ni à Firebase : ce module est testé tel quel sous Node
  * (scripts/test-game.mjs). */
 import { QUESTIONS } from './data/questions.js';

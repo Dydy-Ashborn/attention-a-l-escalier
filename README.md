@@ -1,4 +1,4 @@
-# Attention à l'escalier
+# Bibi step
 
 PWA de soirée : « Sur 100 Français, combien… ? ». Chacun tape son pourcentage sur son
 téléphone, le plus proche de la vraie statistique monte une marche. Une question coquine

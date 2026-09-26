@@ -1,4 +1,4 @@
-/* Attention à l'escalier — service worker.
+/* Bibi step — service worker.
  *
  * RÉSEAU D'ABORD pour le code (HTML/CSS/JS), cache en secours hors-ligne.
  * Leçon de Bibi Love : en cache-first, un navigateur ayant ouvert l'app une fois
@@ -7,8 +7,8 @@
  * On ne touche qu'aux GET de notre origine : intercepter le SDK Firebase lui ferait
  * recevoir index.html à la place d'un module (« MIME type text/html »).
  */
-const VERSION = 'v2';
-const CACHE   = 'escalier-' + VERSION;
+const VERSION = 'v4';
+const CACHE   = 'bibi-step-' + VERSION;
 
 const SHELL = [
   './', './index.html', './css/style.css',

@@ -5,13 +5,14 @@ Même modèle que Bibi Love : achat unique **4,99 €**, attaché à l'uid anony
 
 | | Gratuit | Complet |
 |---|---|---|
-| Questions tirables | 45 normales + 6 coquines | toute la banque |
-| Durée | 45 min | 45 min / 1 h |
+| Questions tirables | sélection découverte : 18 normales + 2 coquines | toute la banque |
+| Durée | 15 min (12 questions) | 45 min / 1 h |
 | Joueurs | 4 | 12 |
 | Question coquine, départage, podium | ✅ | ✅ |
 
-La gratuite fait vivre une vraie partie de 45 min : c'est la répétition des questions à
-la deuxième soirée qui déclenche l'achat, pas une porte fermée.
+La gratuite fait vivre une vraie mini-partie de 15 min, assez complète pour comprendre
+le plaisir du jeu. Les formats de soirée, les 117 questions et les groupes jusqu'à
+12 joueurs donnent une raison immédiate et lisible de passer au complet.
 
 ## js/plan.js — point de contrôle unique
 `guard(feature, value)` (`duree`, `joueurs`) → `{ok, why}` ; `limitePool()` (découpe

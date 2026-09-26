@@ -1,6 +1,6 @@
 rules_version = '2';
 
-/* Attention à l'escalier — sécurité.
+/* Bibi step — sécurité.
  * - Le doc de partie est lisible par tout joueur connecté, écrit par l'hôte seul.
  * - Un joueur n'écrit que sa propre fiche et sa propre réponse.
  * - Les réponses (guesses) ne sont lisibles que par leur auteur et l'hôte :

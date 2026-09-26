@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#1a0638">
-<title>Attention à l'escalier</title>
-<meta name="description" content="Attention à l'escalier : sur 100 Français, combien… ? Chacun tape son pourcentage sur son téléphone, le plus proche monte une marche.">
+<title>Bibi step</title>
+<meta name="description" content="Bibi step : sur 100 Français, combien… ? Chacun tape son pourcentage sur son téléphone, le plus proche monte une marche.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -26,8 +26,8 @@
 <!-- ═══════════════ BOOT ═══════════════ -->
 <section id="screen-boot" class="screen is-active">
   <div class="center-stack">
-    <div class="logo logo-xl" aria-label="Attention à l'escalier">
-      <span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span>
+    <div class="logo logo-xl" aria-label="Bibi step">
+      <span class="logo-l1">Bibi</span><span class="logo-l2">step</span>
     </div>
     <p class="loader-text">On cire les marches…</p>
   </div>
@@ -36,8 +36,8 @@
 <!-- ═══════════════ ACCUEIL ═══════════════ -->
 <section id="screen-home" class="screen">
   <div class="wrap">
-    <div class="logo logo-lg" aria-label="Attention à l'escalier">
-      <span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span>
+    <div class="logo logo-lg" aria-label="Bibi step">
+      <span class="logo-l1">Bibi</span><span class="logo-l2">step</span>
     </div>
     <p class="tagline">Sur 100 Français, combien… ? Tape ton pourcentage, le plus proche monte une marche.</p>
 
@@ -47,6 +47,7 @@
         <input id="inputJoinCode" class="input input-code" maxlength="5" placeholder="CODE" autocomplete="off" spellcheck="false" aria-label="Code de la partie">
         <button id="btnGoJoin" class="btn btn-violet">Rejoindre</button>
       </div>
+      <p class="home-offer-note"><strong>Découverte gratuite : 15 min.</strong> Jeu complet : 4,99 €, une seule fois.</p>
     </div>
 
     <div id="homeHistory" class="history" hidden>
@@ -65,7 +66,119 @@
       </ol>
       <p class="card-sub">Toutes les réponses viennent de vraies enquêtes (Ifop, Insee, Crédoc…), source affichée à chaque révélation.</p>
     </div>
-    <button class="link-btn" data-goto="#/compte">Mon compte</button>
+    <nav class="legal-links" aria-label="Informations légales">
+      <button class="link-btn" data-goto="#/compte">Mon compte</button>
+      <span aria-hidden="true">•</span>
+      <button class="link-btn" data-goto="#/cgu">CGU</button>
+      <span aria-hidden="true">•</span>
+      <button class="link-btn" data-goto="#/cgv">CGV</button>
+    </nav>
+  </div>
+</section>
+
+<!-- ═══════════════ CONDITIONS GÉNÉRALES D'UTILISATION ═══════════════ -->
+<section id="screen-cgu" class="screen">
+  <div class="wrap legal-page">
+    <header class="bar">
+      <button class="btn btn-back" data-goto="#/" aria-label="Retour"><i class="fa fa-arrow-left"></i></button>
+      <h1 class="bar-title">Conditions générales d'utilisation</h1>
+    </header>
+
+    <div class="legal-notice" role="note">
+      <strong>À compléter avant publication commerciale :</strong> nom ou raison sociale de l'éditeur,
+      forme juridique, capital social le cas échéant, adresse, SIREN/SIRET, numéro de TVA et adresse e-mail de contact.
+    </div>
+
+    <article class="card legal-copy">
+      <p class="legal-date">Dernière mise à jour : 22 septembre 2026</p>
+      <h2>1. Objet et acceptation</h2>
+      <p>Les présentes conditions encadrent l'accès et l'utilisation de <strong>Bibi step</strong>, un jeu de soirée en ligne dans lequel les participants estiment des pourcentages à partir de questions statistiques. Utiliser le service implique l'acceptation des présentes CGU.</p>
+
+      <h2>2. Accès au service</h2>
+      <p>Bibi step fonctionne dans un navigateur récent avec une connexion internet. Le maître du jeu crée une partie et partage son code ; les autres participants la rejoignent depuis leur appareil. L'accès de base est gratuit. Certaines fonctionnalités sont réservées à la version complète décrite dans les <a href="#/cgv">CGV</a>.</p>
+      <p>Le service est destiné à un usage privé et récréatif. Les questions signalées comme « coquines » peuvent ne pas convenir aux mineurs ; leur participation relève de la responsabilité de leur représentant légal et du maître du jeu.</p>
+
+      <h2>3. Comportement des utilisateurs</h2>
+      <p>Chaque utilisateur s'engage à choisir un prénom ou pseudonyme licite et respectueux, à ne pas perturber une partie, tenter d'accéder aux réponses d'autrui avant leur révélation, contourner les limites techniques, porter atteinte au service ou l'utiliser à des fins frauduleuses. Le maître du jeu peut retirer un participant de sa partie.</p>
+
+      <h2>4. Contenus et propriété intellectuelle</h2>
+      <p>La marque, l'interface, les textes, graphismes, règles, logiciels et la sélection de questions de Bibi step sont protégés par les droits de propriété intellectuelle applicables. L'utilisateur reçoit uniquement un droit personnel, non exclusif, non cessible et révocable d'utiliser le service pour jouer. Toute extraction, reproduction, revente ou exploitation non autorisée est interdite.</p>
+      <p>Les statistiques sont accompagnées de leurs sources à titre informatif. Malgré le soin apporté à leur sélection, elles peuvent évoluer, comporter une marge d'erreur ou dépendre de la méthodologie de l'étude citée.</p>
+
+      <h2>5. Données et stockage local</h2>
+      <p>Le service utilise une authentification anonyme et traite les données nécessaires à la partie : identifiant technique, code et configuration de partie, pseudonyme, réponses, score et horodatages. Le statut d'achat et, lorsqu'ils sont fournis lors du paiement, l'e-mail et les références de transaction sont également conservés. Les données de jeu transitent par Google Firebase ; les paiements sont traités par Stripe. Des informations de jeu et de préférence sont enregistrées localement dans le navigateur.</p>
+      <p>Les réponses d'un joueur ne sont lisibles avant la révélation que par leur auteur et le maître du jeu. Les données ne doivent pas être utilisées pour prendre une décision produisant un effet juridique. Pour toute demande d'accès, de rectification ou de suppression, l'utilisateur peut contacter l'éditeur à l'adresse qui sera indiquée ci-dessus, en joignant si nécessaire l'identifiant affiché dans « Mon compte ».</p>
+      <p>Les parties en ligne sont conservées jusqu'à leur suppression par le maître du jeu ou par l'éditeur pour les besoins d'exploitation du service. Les données de transaction sont conservées pendant les durées légales comptables, fiscales et probatoires. L'utilisateur peut effacer à tout moment les préférences et l'historique stockés sur son appareil depuis les réglages du navigateur.</p>
+
+      <h2>6. Disponibilité et responsabilité</h2>
+      <p>L'éditeur s'efforce d'assurer l'accès au service, sans garantir une disponibilité continue ni l'absence d'erreurs. Il peut suspendre le service pour maintenance, sécurité ou évolution. Sous réserve des dispositions légales impératives, il ne répond pas des interruptions dues au réseau, au terminal, aux services tiers ou à une utilisation contraire aux présentes CGU.</p>
+
+      <h2>7. Évolution et fin d'utilisation</h2>
+      <p>L'éditeur peut faire évoluer le jeu et les présentes CGU. La version applicable est celle publiée lors de l'utilisation. L'utilisateur peut cesser d'utiliser le service à tout moment et effacer les données locales depuis les réglages de son navigateur.</p>
+
+      <h2>8. Droit applicable</h2>
+      <p>Les présentes CGU sont soumises au droit français. En cas de différend, les parties rechercheront d'abord une solution amiable. Les règles impératives protégeant les consommateurs et les juridictions légalement compétentes restent applicables.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ═══════════════ CONDITIONS GÉNÉRALES DE VENTE ═══════════════ -->
+<section id="screen-cgv" class="screen">
+  <div class="wrap legal-page">
+    <header class="bar">
+      <button class="btn btn-back" data-goto="#/" aria-label="Retour"><i class="fa fa-arrow-left"></i></button>
+      <h1 class="bar-title">Conditions générales de vente</h1>
+    </header>
+
+    <div class="legal-notice" role="note">
+      <strong>À compléter avant d'activer Stripe :</strong> identité et coordonnées complètes du vendeur,
+      adresse de réclamation, coordonnées du médiateur de la consommation et, le cas échéant, numéro de TVA.
+    </div>
+
+    <article class="card legal-copy">
+      <p class="legal-date">Dernière mise à jour : 22 septembre 2026</p>
+      <h2>1. Champ d'application</h2>
+      <p>Les présentes CGV régissent l'achat par un consommateur de la version complète de <strong>Bibi step</strong>. Elles complètent les <a href="#/cgu">CGU</a>. Le vendeur est l'éditeur dont les informations légales doivent figurer en tête de cette page avant la commercialisation.</p>
+
+      <h2>2. Offre</h2>
+      <p>La version complète donne au maître du jeu accès à l'ensemble de la banque de questions disponible, aux parties de 45 minutes ou 1 heure et à un maximum de 12 joueurs. Les participants invités n'ont rien à acheter. Le contenu peut s'enrichir ou évoluer, sans suppression des caractéristiques essentielles annoncées au jour de l'achat.</p>
+
+      <h2>3. Prix</h2>
+      <p>Le prix est de <strong>4,99 €</strong>, payé une seule fois. Le prix affiché au moment de la commande est celui facturé et inclut les taxes applicables, sauf mention contraire imposée par la situation fiscale du vendeur. Aucun abonnement ni renouvellement automatique n'est souscrit.</p>
+
+      <h2>4. Commande et paiement</h2>
+      <p>La commande est passée depuis le bouton « Débloquer — 4,99 € » puis réglée sur la page sécurisée de Stripe, selon les moyens de paiement qui y sont proposés. La vente est conclue après confirmation du paiement. Une confirmation est adressée aux coordonnées recueillies par Stripe lorsqu'elles sont fournies.</p>
+      <p>L'utilisateur doit vérifier le prix et les caractéristiques de l'offre avant de payer. En cas de refus ou d'échec du paiement, l'accès complet n'est pas activé.</p>
+
+      <h2>5. Livraison et rattachement de l'achat</h2>
+      <p>L'accès est activé sans délai après confirmation du paiement. Il est rattaché à l'identifiant anonyme du navigateur utilisé par le maître du jeu. Changer de navigateur, d'appareil, de profil ou supprimer les données du site peut rendre l'achat inaccessible. En cas de difficulté, l'acheteur peut demander une restauration en transmettant son identifiant affiché dans « Mon compte » et un justificatif de paiement.</p>
+
+      <h2>6. Droit de rétractation</h2>
+      <p>Le consommateur dispose en principe d'un délai de quatorze jours pour exercer son droit de rétractation, sans avoir à motiver sa décision. Lorsque l'exécution du contenu numérique commence avant la fin de ce délai, la perte du droit de rétractation ne peut intervenir qu'après accord préalable exprès du consommateur et reconnaissance expresse de cette perte, conformément au droit applicable.</p>
+      <p>À défaut d'un tel recueil exprès pendant la commande, le consommateur conserve son droit de rétractation. La demande doit être envoyée à l'adresse de contact du vendeur, en indiquant l'identité de l'acheteur, la date d'achat et la décision non équivoque de se rétracter. Le remboursement intervient selon les délais légaux, via le moyen de paiement initial sauf accord contraire.</p>
+
+      <h2>7. Garanties légales</h2>
+      <div class="legal-guarantee">
+        <strong>Garantie légale de conformité des contenus et services numériques</strong>
+        <p>Le consommateur dispose de deux ans à compter de la fourniture pour faire valoir un défaut de conformité. Pendant un an, il doit seulement prouver l'existence du défaut, et non sa date d'apparition. La garantie couvre les mises à jour nécessaires au maintien de la conformité.</p>
+        <p>La mise en conformité doit intervenir sans frais, sans retard injustifié et sans inconvénient majeur. Dans les cas prévus par la loi — notamment refus, retard injustifié, échec ou défaut suffisamment grave — le consommateur peut obtenir une réduction du prix ou mettre fin au contrat contre remboursement.</p>
+        <p>Il bénéficie aussi de la garantie des vices cachés pendant deux ans à compter de la découverte du vice, permettant une réduction du prix ou un remboursement contre renoncement au service.</p>
+      </div>
+
+      <h2>8. Réclamations et support</h2>
+      <p>Toute réclamation doit être adressée au vendeur aux coordonnées indiquées en tête des présentes CGV, avec l'identifiant technique visible dans « Mon compte » et, si utile, la référence Stripe. L'acheteur est invité à ne jamais transmettre ses données bancaires complètes.</p>
+
+      <h2>9. Médiation et litiges</h2>
+      <p>Après une réclamation écrite restée sans solution, le consommateur peut recourir gratuitement au médiateur de la consommation dont les coordonnées doivent être renseignées ci-dessus. Les présentes CGV sont soumises au droit français, sans priver le consommateur des protections impératives de son pays de résidence. À défaut d'accord amiable, le litige relève des juridictions légalement compétentes.</p>
+
+      <h2>10. Modèle de formulaire de rétractation</h2>
+      <div class="legal-form">
+        <p>À l'attention de [nom et coordonnées du vendeur à compléter] :</p>
+        <p>Je vous notifie par la présente ma rétractation du contrat portant sur l'achat de la version complète de Bibi step.</p>
+        <p>Commandé le : […]<br>Nom du consommateur : […]<br>Adresse du consommateur : […]<br>Identifiant Bibi step ou référence de paiement : […]</p>
+        <p>Date : […]<br>Signature du consommateur, uniquement en cas d'envoi sur papier : […]</p>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -103,20 +216,38 @@
     <div class="card" id="cardDuree">
       <h2 class="card-title">Durée de la partie</h2>
       <div class="choice-grid" data-field="duree">
-        <button class="choice is-on" data-value="45">
-          <span class="choice-label">45 min</span><span class="choice-hint">32 questions, 3 étages</span>
+        <button class="choice is-on" data-value="15">
+          <span class="choice-label">15 min</span><span class="choice-hint">Découverte · 12 questions</span>
+        </button>
+        <button class="choice" data-value="45">
+          <span class="choice-label">45 min</span><span class="choice-hint">Soirée · 32 questions</span>
         </button>
         <button class="choice" data-value="60">
-          <span class="choice-label">1 heure</span><span class="choice-hint">42 questions, 3 étages</span>
+          <span class="choice-label">1 heure</span><span class="choice-hint">Grand format · 42 questions</span>
         </button>
       </div>
       <p class="card-sub">Une question coquine est glissée dans chaque partie, dans la seconde moitié. Tu peux arrêter la partie quand tu veux.</p>
     </div>
 
     <div id="planBanner" class="plan-banner" hidden>
-      <span><i class="fa fa-crown"></i> <strong id="planBannerTitle">Version gratuite</strong>
-      <span id="planBannerLine"></span></span>
-      <button id="btnPlanUpgrade" class="btn btn-gold btn-sm">Débloquer</button>
+      <div class="plan-banner-head">
+        <span class="plan-kicker">Ton accès actuel</span>
+        <strong id="planBannerTitle">Partie découverte</strong>
+        <span id="planBannerLine"></span>
+      </div>
+      <div class="plan-compare">
+        <div class="plan-tier">
+          <span class="plan-tier-name">Découverte</span>
+          <strong>15 min</strong>
+          <small><span id="planFreeCount">20</span> questions disponibles · 4 joueurs</small>
+        </div>
+        <div class="plan-tier is-full">
+          <span class="plan-badge"><i class="fa fa-crown"></i> Jeu complet</span>
+          <strong>45 min ou 1 h</strong>
+          <small><span id="planFullCount">117</span> questions · <span id="planFullCoquines">20</span> coquines · <span id="planFullPlayers">12</span> joueurs</small>
+        </div>
+      </div>
+      <button id="btnPlanUpgrade" class="btn btn-gold">Débloquer le jeu complet — 4,99 €</button>
     </div>
     <button id="btnCreateGame" class="btn btn-gold btn-xl">Ouvrir le salon <i class="fa fa-arrow-right"></i></button>
   </div>
@@ -158,7 +289,7 @@
   <div class="tv">
     <header class="tv-head">
       <div class="tv-etage"><span id="liveEtage">Étage 1</span><span id="liveProgress" class="tv-progress"></span></div>
-      <div class="logo logo-sm" aria-hidden="true"><span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span></div>
+      <div class="logo logo-sm" aria-hidden="true"><span class="logo-l1">Bibi</span><span class="logo-l2">step</span></div>
       <button id="btnLiveQuit" class="btn btn-ghost btn-sm">Terminer</button>
     </header>
 
@@ -236,8 +367,8 @@
 <!-- ═══════════════ REJOINDRE (JOUEUR) ═══════════════ -->
 <section id="screen-join" class="screen">
   <div class="wrap">
-    <div class="logo logo-md" aria-label="Attention à l'escalier">
-      <span class="logo-l1">Attention</span><span class="logo-l2">à l'escalier&nbsp;!</span>
+    <div class="logo logo-md" aria-label="Bibi step">
+      <span class="logo-l1">Bibi</span><span class="logo-l2">step</span>
     </div>
     <div class="card">
       <h2 class="card-title">Partie <span id="joinCode" class="mono"></span></h2>
@@ -303,18 +434,28 @@
 <div id="paywall" class="modal">
   <div class="modal-box paywall-box">
     <div class="paywall-crown"><i class="fa fa-crown"></i></div>
-    <h2 class="paywall-title">Version complète</h2>
+    <p class="paywall-kicker">Une seule fois. Toutes tes soirées.</p>
+    <h2 class="paywall-title">Débloque le jeu complet</h2>
     <p id="paywallWhy" class="paywall-why"></p>
+    <div class="paywall-stats" aria-label="Contenu de la version complète">
+      <div><strong id="paywallTotal">117</strong><span>questions</span></div>
+      <div><strong id="paywallCoquines">20</strong><span>coquines</span></div>
+      <div><strong id="paywallThemes">9</strong><span>thèmes</span></div>
+    </div>
     <ul class="paywall-list">
-      <li><i class="fa fa-circle-check"></i> <strong>Toute la banque de questions</strong>, qui s'agrandit</li>
-      <li><i class="fa fa-circle-check"></i> Parties de <strong>45 min et 1 h</strong></li>
-      <li><i class="fa fa-circle-check"></i> Jusqu'à <strong>12 joueurs</strong></li>
+      <li><i class="fa fa-circle-check"></i> Les vrais formats soirée : <strong>45 min et 1 h</strong></li>
+      <li><i class="fa fa-circle-check"></i> Jusqu'à <strong>12 joueurs</strong> sur leurs téléphones</li>
+      <li><i class="fa fa-circle-check"></i> Les nouvelles questions ajoutées à la banque</li>
     </ul>
-    <div class="paywall-price"><strong id="paywallPrice">4,99 €</strong> une seule fois, à vie</div>
+    <div class="paywall-price"><strong id="paywallPrice">4,99 €</strong> achat unique, sans abonnement</div>
     <p class="paywall-note">C'est le maître du jeu qui paie. Tous les joueurs en profitent sans rien installer.</p>
+    <label class="paywall-consent">
+      <input id="paywallConsent" type="checkbox">
+      <span>J'accepte les <a href="#/cgv">CGV</a> et les <a href="#/cgu">CGU</a>.</span>
+    </label>
     <div class="modal-actions">
       <button id="paywallCancel" class="btn btn-ghost">Plus tard</button>
-      <button id="paywallBuy" class="btn btn-gold">Débloquer</button>
+      <button id="paywallBuy" class="btn btn-gold" disabled>Débloquer — 4,99 €</button>
     </div>
     <button id="paywallRestore" class="link-btn">J'ai déjà acheté sur cet appareil</button>
   </div>

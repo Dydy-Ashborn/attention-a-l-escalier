@@ -1,6 +1,6 @@
 /* Tests de la logique pure + contrôle de la banque. Lancer : node scripts/test-game.mjs */
 import assert from 'node:assert/strict';
-import { QUESTIONS, enonce } from '../js/data/questions.js';
+import { QUESTIONS, DECOUVERTE_IDS, enonce } from '../js/data/questions.js';
 import { tirerPartie, departager, crediter, classement, enTete, etageDe, ouvreEtage,
          pourcent, questionDepartage, nbQuestions } from '../js/game.js';
 
@@ -24,8 +24,18 @@ t('banque : au moins une coquine et assez de groupes pour 1 h', () => {
   console.log(`   ${QUESTIONS.length} questions, ${coq.length} coquines, ${groupes.size} groupes normaux`);
   assert.ok(groupes.size >= nbQuestions(60) - 1, 'pas assez de groupes pour une partie d\'1 h');
 });
+t('banque découverte : courte, variée et sans référence invalide', () => {
+  const qs = DECOUVERTE_IDS.map(id => QUESTIONS.find(q => q.id === id));
+  assert.equal(qs.length, 20);
+  assert.ok(qs.every(Boolean), 'id découverte introuvable');
+  assert.equal(new Set(DECOUVERTE_IDS).size, DECOUVERTE_IDS.length, 'id découverte dupliqué');
+  assert.equal(qs.filter(q => q.coq).length, 2);
+  assert.ok(new Set(qs.filter(q => !q.coq).map(q => q.t)).size >= 7, 'découverte pas assez variée');
+  assert.ok(new Set(qs.filter(q => !q.coq).map(q => q.g)).size >= nbQuestions(15) - 1,
+    'pas assez de groupes pour la découverte');
+});
 t('tirage : longueur, une seule coquine placée en 2e moitié, groupes uniques', () => {
-  for (const duree of [45, 60]) for (let k = 0; k < 200; k++) {
+  for (const duree of [15, 45, 60]) for (let k = 0; k < 200; k++) {
     const { ids, coquineIdx } = tirerPartie({ duree });
     assert.equal(ids.length, nbQuestions(duree));
     const qs = ids.map(id => QUESTIONS.find(q => q.id === id));
